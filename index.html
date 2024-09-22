@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List Application</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #6f86d6, #48c6ef);
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+        }
+
+        #container {
+            text-align: center;
+            background-color: #fff;
+            padding: 30px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            max-width: 400px;
+            width: 100%;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        h1 {
+            margin: 0;
+            padding: 0;
+            font-size: 24px;
+            color: #007bff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, #007bff, #00c6ff);
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: gradient 3s infinite alternate;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 65%;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            margin-right: 5px;
+            outline: none;
+            transition: 0.3s;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0);
+        }
+
+        input[type="text"]:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: translateY(-3px);
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        li {
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        li:hover {
+            transform: translateX(5px);
+        }
+
+        li button {
+            background-color: #dc3545;
+            padding: 5px 10px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+
+        li button:hover {
+            background-color: #c82333;
+        }
+
+        /* Animations */
+        @keyframes gradient {
+            0% { background-position: 0%; }
+            100% { background-position: 100%; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>To-Do List Application</h1>
+        <input type="text" id="input" placeholder="Enter task">
+        <button onclick="add()">Add</button>
+        <ul id="listcontainer"></ul>
+    </div>
+
+    <script>
+        var ul = document.getElementById("listcontainer");
+        function add() {
+            var list = document.createElement("li");
+            var inp = document.getElementById("input");
+            list.innerHTML = inp.value + "<button onclick='del(event)'>delete</button>";
+            ul.append(list);
+            document.getElementById("input").value = '';
+        }
+        function del(event) {
+            event.target.parentElement.remove();
+        }
+    </script>
+</body>
+</html>
