@@ -7,7 +7,7 @@
     <style>
         body {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             height: 100vh;
             background: linear-gradient(135deg, #6f86d6, #48c6ef);
@@ -15,7 +15,50 @@
             margin: 0;
         }
 
+        .navbar {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #007bff;
+            text-transform: uppercase;
+        }
+
+        .navbar .nav-buttons {
+            display: flex;
+            gap: 10px;
+            margin-right: 30px;
+        }
+
+        .nav-buttons button {
+            padding: 8px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .nav-buttons button:hover {
+            background-color: #0056b3;
+            transform: translateY(-3px);
+        }
+
         #container {
+            margin-top: 80px;
             text-align: center;
             background-color: #fff;
             padding: 30px;
@@ -23,20 +66,11 @@
             border-radius: 12px;
             max-width: 400px;
             width: 100%;
-            animation: float 3s ease-in-out infinite;
         }
 
         h1 {
-            margin: 0;
-            padding: 0;
             font-size: 24px;
             color: #007bff;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            background: linear-gradient(90deg, #007bff, #00c6ff);
-            -webkit-background-clip: text;
-            color: transparent;
-            animation: gradient 3s infinite alternate;
         }
 
         input[type="text"] {
@@ -47,12 +81,10 @@
             margin-right: 5px;
             outline: none;
             transition: 0.3s;
-            box-shadow: 0 0 10px rgba(0, 123, 255, 0);
         }
 
         input[type="text"]:focus {
             border-color: #007bff;
-            box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
         }
 
         button {
@@ -85,7 +117,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s;
         }
 
@@ -106,22 +137,19 @@
         li button:hover {
             background-color: #c82333;
         }
-
-        /* Animations */
-        @keyframes gradient {
-            0% { background-position: 0%; }
-            100% { background-position: 100%; }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
     </style>
 </head>
 <body>
+    <div class="navbar">
+        <h1>To-Do App</h1>
+        <div class="nav-buttons">
+            <button>Sign In</button>
+            <button>Sign Up</button>
+        </div>
+    </div>
+
     <div id="container">
-        <h1>To-Do List Application</h1>
+        <h1>Add Task</h1>
         <input type="text" id="input" placeholder="Enter task">
         <button onclick="add()">Add</button>
         <ul id="listcontainer"></ul>
@@ -132,9 +160,11 @@
         function add() {
             var list = document.createElement("li");
             var inp = document.getElementById("input");
-            list.innerHTML = inp.value + "<button onclick='del(event)'>delete</button>";
-            ul.append(list);
-            document.getElementById("input").value = '';
+            if (inp.value.trim() !== "") {
+                list.innerHTML = inp.value + " <button onclick='del(event)'>Delete</button>";
+                ul.append(list);
+                inp.value = '';
+            }
         }
         function del(event) {
             event.target.parentElement.remove();
